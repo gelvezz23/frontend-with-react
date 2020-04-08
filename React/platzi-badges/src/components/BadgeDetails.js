@@ -1,9 +1,10 @@
 import React from 'react'
+
 import './styles/BadgeDetails.css';
 import ConfImage from './../images/platziconf-logo.svg'
 import Badge from '../components/Badge';
 import {Link} from 'react-router-dom'
-
+import DeleteBadgeModal from './DeleteBadgeModal';
 
 const BadgeDetails = (props) =>{
     const badge = props.badge
@@ -34,21 +35,29 @@ const BadgeDetails = (props) =>{
                         />
                     </div>
                     <div className="col">
-                    <h2>Actions</h2>
-                    <div>
+                        <h2>Actions</h2>
                         <div>
-                        <Link
-                            className="btn btn-primary mb-4"
-                            to={`/badges/${badge.id}/edit`}
-                        >
-                            Edit
-                        </Link>
-                        </div>
+                            <div>
+                                <Link
+                                    className="btn btn-primary mb-4"
+                                    to={`/badges/${badge.id}/edit`}
+                                >
+                                    Edit
+                                </Link>
+                            </div>
 
-                        <div>
-                        <button className="btn btn-danger">Delete</button>
+                            <div>
+                                <button onClick={props.onOpenModal} 
+                                    className="btn btn-danger">
+                                            Delete
+                                </button>
+                                <DeleteBadgeModal 
+                                    isOpen={props.modalIsOpen} 
+                                    onClose={props.onCloseModal}
+                                    onDeleteBadge={props.onDeleteBadge}
+                                />
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
