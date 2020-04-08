@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 
 import './styles/BadgeDetails.css';
 import ConfImage from './../images/platziconf-logo.svg'
@@ -7,7 +7,19 @@ import {Link} from 'react-router-dom'
 import DeleteBadgeModal from './DeleteBadgeModal';
 
 const BadgeDetails = (props) =>{
+
+
+    const useIncreaseCount = (max) =>{
+        const [count,setCount] = useState(0)
+            if(count > max){
+                setCount(0)
+            }
+            return [count,setCount]
+        }
+
     const badge = props.badge
+    const [count, setCount] = useIncreaseCount(4)
+
     return(
         <div>
              <div className="BadgeDetails__hero">
@@ -36,6 +48,9 @@ const BadgeDetails = (props) =>{
                     </div>
                     <div className="col">
                         <h2>Actions</h2>
+                        <button onClick={() => {setCount(count + 1)}} className="btn btn-primary">
+                            count {count}
+                        </button>
                         <div>
                             <div>
                                 <Link
