@@ -1,0 +1,17 @@
+.footer{
+    background-color:transparent ;
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+
+}
+.footer a{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 15px;
+}
+.footer a:hover{
+    text-decoration: underline;
+}

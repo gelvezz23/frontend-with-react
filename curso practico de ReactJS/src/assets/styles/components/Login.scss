@@ -1,0 +1,106 @@
+.login__container h2{
+    color: white;
+}
+.login{
+    background: linear-gradient(#e66465, #9198e5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0px 30px;
+    min-height: calc(100vh - 200px);
+
+}
+.login__container{
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-box-shadow: 10px 10px 97px -18px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 97px -18px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 97px -18px rgba(0,0,0,0.75);
+    color:white;
+    border: 2px solid white;
+    border-radius: 40px;
+    padding: 60px 64px 40px;
+    min-height: 600px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
+}
+.login__container--form{
+    display: flex;
+    flex-direction: column;
+}
+.login__container--form label{
+    font-size: 14px;
+}
+.login__container--remmenber{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+   
+}
+.login__container--remmenber a{
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+
+}
+.login__container--remmenber a:hover{
+    text-decoration: underline;
+}
+
+.login__container--social-media > div{
+
+align-items: left;
+justify-content: left;
+font-size: 14px;
+
+margin-bottom: 20px;
+}
+.login__container--social-media > div > img{
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+}
+.login__container--register a{
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    
+}
+.login__container--register a:hover{
+    text-decoration: underline;
+}
+.input--login{
+    color: white;
+    margin-bottom: 20px; 
+    background-color: transparent;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px solid white;
+    font-family: 'Muli', sans-serif;
+    outline:none;
+    height: 50px;
+
+}
+::placeholder{
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+.button{
+    background-color: rgba(255, 255, 255, 0.2);
+    border:none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Muli', sans-serif;
+    padding: 10px;
+    margin:20px 0px;
+    letter-spacing: 1px;
+
+}
