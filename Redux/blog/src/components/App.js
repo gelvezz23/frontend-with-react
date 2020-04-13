@@ -1,11 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 
+class App extends Component {
 
-
-
-const App = () => {
-
-  const ponerFilas = () =>[
+  ponerFilas = () =>[
     <tr>
       <td>Carlos</td>
       <td>carlos@devhome.dev</td>
@@ -17,23 +14,23 @@ const App = () => {
       <td>devhome.dev</td>
     </tr>
   ]
-
-  return (
-    <div className="margen">
-      <table className="tabla">
-          <thead>
-            <tr>
-              <th>nombre</th>
-              <th>Correo</th>
-              <th>Enlace</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ponerFilas()}
-          </tbody>
-      </table>
-    </div>
-  );
+    render(){
+        return (
+          <div className="margen">
+            <table className="tabla">
+                <thead>
+                  <tr>
+                    <th>nombre</th>
+                    <th>Correo</th>
+                    <th>Enlace</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  { this.ponerFilas() }
+                </tbody>
+            </table>
+          </div>
+        );
+    }
 }
-
 export default App;
