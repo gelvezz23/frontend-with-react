@@ -1,3 +1,7 @@
+*{
+  margin: 0px;
+  padding:0px;
+}
 .margen{
   margin:100px;
 }
@@ -9,4 +13,15 @@
 .tabla td{
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+#menu{
+  background-color: #555555;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#menu a{
+  color: white;
+  padding-right: 50px;
 }
