@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
+import * as usuariosActions from '../../actions/usuariosActions'
+
 class Usuarios extends Component {
 
 /**async componentDidMount(){
@@ -11,6 +13,10 @@ class Usuarios extends Component {
       usuario:response.data
     })
 }*/
+
+   componentDidMount(){
+     this.props.traerTodos()
+  }
 
   ponerFilas = () =>{
     return(
@@ -28,7 +34,7 @@ class Usuarios extends Component {
 
   
     render(){
-
+      console.log(this.props)
         return (
           <div className="margen">
             <table className="tabla">
@@ -52,4 +58,4 @@ const mapStateToProps = (reducers) => {
   return reducers.usuarioReducers
 
 }
-export default connect(mapStateToProps,{/**Actions */})(Usuarios);
+export default connect(mapStateToProps,usuariosActions)(Usuarios);
