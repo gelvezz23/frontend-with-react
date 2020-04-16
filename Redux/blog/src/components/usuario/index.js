@@ -24,7 +24,6 @@ class Usuarios extends Component {
     )
   }
 
-  
     render(){
       
         return (
