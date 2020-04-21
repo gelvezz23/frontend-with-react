@@ -1,40 +1,39 @@
-#margen {
-	margin: 100px;
-	margin-top: 50px;
+*{
+  margin: 0px;
+  padding:0px;
+}
+.margen{
+  margin:100px;
+}
+.tabla{
+  width: 100%;
+  text-align: left;
 }
 
-.tabla {
-	width: 100%;
-	text-align: left;
+.tabla td{
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.tabla td {
-	padding-top: 10px;
-	padding-bottom: 10px;
+#menu{
+  background-color: #555555;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-#menu {
-	background-color: #253A46;
-	padding: 20px;
-	font-size: 20px;
+#menu a{
+  color: white;
+  padding-right: 50px;
 }
 
-#menu a {
-	color: white;
-	padding-right: 50px;
+.center{
+    text-align: center;
 }
 
-body {
-	margin: 0;
+.rojo{
+  color:red;
 }
 
-.center {
-	text-align: center;
-}
-
-.rojo {
-	color: red;
-}
 
 
 

@@ -40,7 +40,7 @@ const Tabla = (props) => {
 }
 
 const mapStateToProps = (reducers) => {
-	return reducers.usuarioReducers;
+	return reducers.usuarioReducer
 };
 
 export default connect(mapStateToProps)(Tabla);
