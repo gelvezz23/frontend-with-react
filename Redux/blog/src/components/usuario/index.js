@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as usuariosActions from '../../actions/usuariosActions'
 import Spinner from '../general/Spinner';
 import Fatal from '../general/Fatal';
+import Tabla from './Tabla'
 
 class Usuarios extends Component {
 
@@ -12,20 +13,7 @@ class Usuarios extends Component {
      this.props.traerTodos()
   }
 
-  ponerFilas = () =>{
-    return(
-      this.props.usuario.map(user => { 
-        return(
-            <tr key={user.id}>
-              <td> {user.name} </td>
-              <td> {user.email} </td>
-              <td> {user.website} </td>
-            </tr>
-        )
-      })
-    )
-  }
-
+ 
   ponerContenido = () => {
     if (this.props.cargando) {
 			return <Spinner />;
@@ -35,19 +23,11 @@ class Usuarios extends Component {
       return <Fatal mensaje={ this.props.error } />;
     }else{
       return(
-        <table className="tabla">
-          <thead>
-            <tr>
-              <th>nombre</th>
-              <th>Correo</th>
-              <th>Enlace</th>
-            </tr>
-          </thead>
-          <tbody>
-            { this.ponerFilas() }
-          </tbody>
-        </table>
-  
+        <div>
+          <h1>Usuarios</h1>
+          <Tabla/>
+        </div>
+          
       )
     }
 
