@@ -7,6 +7,10 @@ import Spinner from '../general/Spinner';
 import Fatal from '../general/Fatal';
 import Tabla from './Tabla'
 
+import './../../css/index.css';
+import './../../css/iconos.css';
+
+
 class Usuarios extends Component {
 
    componentDidMount(){
