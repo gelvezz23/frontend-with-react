@@ -13,7 +13,7 @@ class Publicaciones extends Component {
 
 	componentDidMount() {
 		if (!this.props.usuarioReducer.usuario.length) {
-			this.props.traerTodos();
+			this.props.usuariosTraerTodo();
 		}
 	}
 
