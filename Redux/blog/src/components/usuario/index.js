@@ -14,7 +14,11 @@ import './../../css/iconos.css';
 class Usuarios extends Component {
 
    componentDidMount(){
-     this.props.traerTodos()
+     if(!this.props.usuario.length){
+      this.props.traerTodos()
+     }else{
+
+     }
   }
 
  
