@@ -6,15 +6,16 @@ import * as publicacionesActions from '../../actions/publicacionesActions';
 
 
 const {traerTodos: usuariosTraerTodo} = usuariosActions
-const {traerTodos: publicacionesTraerTodo} = publicacionesActions
+const {traerPorUsuario: publicacionesTraerPorUsuario} = publicacionesActions
 
 
 class Publicaciones extends Component {
 
-	componentDidMount() {
+	async componentDidMount() {
 		if (!this.props.usuarioReducer.usuario.length) {
-			this.props.usuariosTraerTodo();
-		}
+		    await	this.props.usuariosTraerTodo();
+        }
+            await this.props.publicacionesTraerPorUsuario( this.props.match.params.key );
 	}
 
 	render() {
@@ -39,7 +40,7 @@ const mapStateToProps = ({ usuarioReducer, publicacionesReducer }) => {
 
 const mapDispatchToProps = {
     usuariosTraerTodo,
-    publicacionesTraerTodo
+    publicacionesTraerPorUsuario
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Publicaciones);
