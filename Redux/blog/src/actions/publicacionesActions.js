@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {TRAER_POR_USUARIO, CARGANDO, ERROR} from './../types/publicacionesTypes'
+import { TRAER_POR_USUARIO } from './../types/publicacionesTypes'
 import * as usuariosTypes from './../types/usuariosTypes'
 
 const {TRAER_TODOS: USUARIO_TRAER_TODOS} = usuariosTypes
