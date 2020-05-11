@@ -55,6 +55,49 @@ class Publicaciones extends Component {
 		)
 	}
 
+	ponerPublicaciones= () =>{
+		const {
+			usuarioReducer,
+			usuarioReducer: { usuario },
+			publicacionesReducer,
+			publicacionesReducer:{ publicaciones },
+			match: {params: { key } }
+		} = this.props;	
+
+		if(!usuario.length) return null;
+		if(usuarioReducer.error) return null;
+		if(publicacionesReducer.cargando){
+			return <Spinner/>
+		}
+		if(publicacionesReducer.error){
+			return <Fatal mensaje={publicacionesReducer.error}/>
+		}
+		if(!publicaciones.length){
+			return null;
+		}
+		if(!('publicaciones_key' in usuario[key])){
+			return null;
+		}
+
+		const {publicaciones_key} = usuario[key]
+		return publicaciones[publicaciones_key].map((publicacion) =>{
+			return(
+			<div className="pub_titulo">
+				<h2>
+					{publicacion.title}	
+				</h2>
+				<h3>
+					{publicacion.body}
+				</h3>
+			</div>
+			)
+		})
+
+
+
+
+	}
+
 	render() {
 		console.log(this.props);
 		
@@ -65,6 +108,7 @@ class Publicaciones extends Component {
 			<div className="margen">
 				{ this.props.match.params.key }
 				{ this.ponerUsuario()}
+				{ this.ponerPublicaciones() }
 			</div>
 		);
 	}
