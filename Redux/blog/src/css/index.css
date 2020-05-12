@@ -1,3 +1,5 @@
+/** @format */
+
 #margen {
 	margin: 100px;
 	margin-top: 50px;
@@ -14,7 +16,7 @@
 }
 
 #menu {
-	background-color: #253A46;
+	background-color: #253a46;
 	padding: 20px;
 	font-size: 20px;
 }
@@ -38,6 +40,7 @@ body {
 
 .pub_titulo {
 	border-top: 1px solid black;
+	cursor: pointer;
 }
 
 li {
