@@ -1,63 +1,78 @@
 import axios from 'axios';
-import { TRAER_POR_USUARIO } from './../types/publicacionesTypes'
-import * as usuariosTypes from './../types/usuariosTypes'
+import {
+	CARGANDO,
+	ERROR,
+	ACTUALIZAR
+} from '../types/publicacionesTypes';
+import * as usuariosTypes from '../types/usuariosTypes';
 
-const {TRAER_TODOS: USUARIO_TRAER_TODOS} = usuariosTypes
-
-
-/** 
- * TRAER TODAS LAS PUBLICACIONES 
- * 
-export const traerTodos = () => async (dispatch) => {
-    dispatch({
-		type: CARGANDO
-	});
-    try{
-        const respuesta = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        dispatch({
-            type: TRAER_TODOS,
-            payload: respuesta.data
-        })
-    }catch(error){
-        console.log(error.message);
-		dispatch({
-			type: ERROR,
-			payload: 'Algo a salido mal Error :'+ error.message
-		})
-
-    }
-};
-*/
-
-
+const { TRAER_TODOS: USUARIOS_TRAER_TODOS } = usuariosTypes;
 
 export const traerPorUsuario = (key) => async (dispatch, getState) => {
-    const { usuario } = getState().usuarioReducer;
-    const { publicaciones } = getState().publicacionesReducer; 
-    const usuario_id = usuario[key].id
-    const respuesta = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${usuario_id}`);
+	dispatch({
+		type: CARGANDO
+	});
 
-    const publicaciones_actualizadas = [
-        ...publicaciones,
-        respuesta.data
-    ]
+	let { usuarios } = getState().usuariosReducer;
+	const { publicaciones } = getState().publicacionesReducer;
+	const usuario_id = usuarios[key].id;
 
-    const publicaciones_key = publicaciones_actualizadas.length -1 ;
+	try {
+		const respuesta = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${usuario_id}`);
+		const nuevas = respuesta.data.map((publicacion) => ({
+			...publicacion,
+			comentarios: [],
+			abierto: false
+		}));
+		const publicaciones_actualizadas = [
+			...publicaciones,
+			nuevas
+		];
 
-    const usuarios_actualizados = [...usuario]
-    usuarios_actualizados[key] = {
-        ...usuario[key],
-        publicaciones_key
+		dispatch({
+			type: ACTUALIZAR,
+			payload: publicaciones_actualizadas
+		});
 
-    }
+		const publicaciones_key = publicaciones_actualizadas.length - 1;
+		const usuarios_actualizados = [...usuarios];
+		usuarios_actualizados[key] = {
+			...usuarios[key],
+			publicaciones_key
+		};
 
-   dispatch({
-       type:USUARIO_TRAER_TODOS,
-       payload: usuarios_actualizados
-   });
-    
-    dispatch({
-        type: TRAER_POR_USUARIO,
-        payload: publicaciones_actualizadas
-    });
-}
+		dispatch({
+			type: USUARIOS_TRAER_TODOS,
+			payload: usuarios_actualizados
+		});
+	}
+	catch (error) {
+		console.log(error.message);
+		dispatch({
+			type: ERROR,
+			payload: 'Publicaciones no disponibles.'
+		});
+	}
+};
+
+export const abrirCerrar = (pub_key, com_key) => (dispatch, getState) => {
+	const { publicaciones } = getState().publicacionesReducer;
+	const seleccionada = publicaciones[pub_key][com_key];
+
+	const actualizada = {
+		...seleccionada,
+		abierto: !seleccionada.abierto
+	};
+
+	const publicaciones_actualizadas = [...publicaciones];
+
+	publicaciones_actualizadas[pub_key] = [
+		...publicaciones[pub_key]
+	];
+	publicaciones_actualizadas[pub_key][com_key] = actualizada;
+	
+	dispatch({
+		type: ACTUALIZAR,
+		payload: publicaciones_actualizadas
+	})
+};

@@ -1,21 +1,17 @@
-import {
-	CARGANDO,
-	ERROR,
-	ACTUALIZAR
-} from '../types/publicacionesTypes';
+import { TRAER_TODOS, CARGANDO, ERROR } from '../types/usuariosTypes';
 
 const INITIAL_STATE = {
-	publicaciones: [],
+	usuarios: [],
 	cargando: false,
 	error: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case ACTUALIZAR:
+		case TRAER_TODOS:
 			return {
 				...state,
-				publicaciones: action.payload,
+				usuarios: action.payload,
 				cargando: false,
 				error: ''
 			};

@@ -1,59 +1,49 @@
-import React, {Component} from 'react';
+/** @format */
+
+import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import * as usuariosActions from '../../actions/usuariosActions'
+import * as usuariosActions from '../../actions/usuariosActions';
 import Spinner from '../general/Spinner';
 import Fatal from '../general/Fatal';
-import Tabla from './Tabla'
+import Tabla from './Tabla';
 
 import './../../css/index.css';
 import './../../css/iconos.css';
 
-
 class Usuarios extends Component {
+	componentDidMount() {
+		if (!this.props.usuario.length) {
+			this.props.traerTodos();
+		} else {
+		}
+	}
 
-   componentDidMount(){
-     if(!this.props.usuario.length){
-      this.props.traerTodos()
-     }else{
-
-     }
-  }
-
- 
-  ponerContenido = () => {
-    if (this.props.cargando) {
+	ponerContenido = () => {
+		if (this.props.cargando) {
 			return <Spinner />;
-    }
-    
-    if(this.props.error){
-      return <Fatal mensaje={ this.props.error } />;
-    }else{
-      return(
-        <div>
-          <h1>Usuarios</h1>
-          <Tabla/>
-        </div>
-          
-      )
-    }
+		}
 
-   
-  }
-    render(){
-      console.log(this.props.error)
-      console.log(this.props.cargando)
-        return (
-          <div className="margen">
-            { this.ponerContenido() }
-          </div>
-        );
-    }
+		if (this.props.error) {
+			return <Fatal mensaje={this.props.error} />;
+		} else {
+			return (
+				<div>
+					<h1>Usuarios</h1>
+					<Tabla />
+				</div>
+			);
+		}
+	};
+	render() {
+		console.log(this.props.error);
+		console.log(this.props.cargando);
+		return <div className='margen'>{this.ponerContenido()}</div>;
+	}
 }
 
 const mapStateToProps = (reducers) => {
-  return reducers.usuarioReducer
-
-}
-export default connect(mapStateToProps,usuariosActions)(Usuarios);
+	return reducers.usuarioReducer;
+};
+export default connect(mapStateToProps, usuariosActions)(Usuarios);

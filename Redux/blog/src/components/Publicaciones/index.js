@@ -1,129 +1,119 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Spinner from './../general/Spinner';
-import Fatal from './../general/Fatal';
+import Spinner from '../General/Spinner';
+import Fatal from '../General/Fatal';
 
 import * as usuariosActions from '../../actions/usuariosActions';
 import * as publicacionesActions from '../../actions/publicacionesActions';
 
-
-const {traerTodos: usuariosTraerTodo} = usuariosActions
-const {traerPorUsuario: publicacionesTraerPorUsuario} = publicacionesActions
-
+const { traerTodos: usuariosTraerTodos } = usuariosActions;
+const { traerPorUsuario: publicacionesTraerPorUsuario, abrirCerrar } = publicacionesActions;
 
 class Publicaciones extends Component {
 
 	async componentDidMount() {
 		const {
-			usuariosTraerTodo,
-			publicacionesTraerPorUsuario,
-			match:{ params: { key }}
-		} = this.props
+			usuariosTraerTodos,
+			match: { params: { key } },
+			publicacionesTraerPorUsuario
+		} = this.props;
 
-
-		if (!this.props.usuarioReducer.usuario.length) {
-		    await	usuariosTraerTodo();
+		if (!this.props.usuariosReducer.usuarios.length) {
+			await usuariosTraerTodos();
 		}
-		if (this.props.usuarioReducer.error){
+		if (this.props.usuariosReducer.error) {
 			return;
 		}
-
-		if(!('publicaciones_key' in this.props.usuarioReducer.usuario[key])){
-			await publicacionesTraerPorUsuario( key );
+		if (!('publicaciones_key' in this.props.usuariosReducer.usuarios[key])) {
+			await publicacionesTraerPorUsuario(key);
 		}
-            
 	}
 
-	ponerUsuario(){
+	ponerUsuario = () => {
 		const {
-			usuarioReducer,
-			match:{ params: { key }}
-		}= this.props
-		if(usuarioReducer.error){
-			return <Fatal mensaje={ usuarioReducer.error} />
+			match: { params: { key } },
+			usuariosReducer
+		} = this.props;
+
+		if (usuariosReducer.error) {
+			return <Fatal mensaje={ usuariosReducer.error } />;
+		}
+		if (!usuariosReducer.usuarios.length || usuariosReducer.cargando) {
+			return <Spinner />
 		}
 
-		if(!usuarioReducer.usuario.length || usuarioReducer.cargando){
-			return <Spinner/>
-		}
-		const nombre = usuarioReducer.usuario[key].name;
+		const nombre = usuariosReducer.usuarios[key].name;
 
-		return(
+		return (
 			<h1>
 				Publicaciones de { nombre }
 			</h1>
-		)
-	}
+		);
+	};
 
-	ponerPublicaciones= () =>{
+	ponerPublicaciones = () => {
 		const {
-			usuarioReducer,
-			usuarioReducer: { usuario },
+			usuariosReducer,
+			usuariosReducer: { usuarios },
 			publicacionesReducer,
-			publicacionesReducer:{ publicaciones },
-			match: {params: { key } }
-		} = this.props;	
+			publicacionesReducer: { publicaciones },
+			match: { params: { key } }
+		} = this.props;
 
-		if(!usuario.length) return null;
-		if(usuarioReducer.error) return null;
-		if(publicacionesReducer.cargando){
-			return <Spinner/>
+		if (!usuarios.length) return;
+		if (usuariosReducer.error) return;
+		if (publicacionesReducer.cargando) {
+			return <Spinner />;
 		}
-		if(publicacionesReducer.error){
-			return <Fatal mensaje={publicacionesReducer.error}/>
+		if (publicacionesReducer.error) {
+			return <Fatal mensaje={ publicacionesReducer.error } />
 		}
-		if(!publicaciones.length){
-			return null;
-		}
-		if(!('publicaciones_key' in usuario[key])){
-			return null;
-		}
+		if (!publicaciones.length) return;
+		if (!('publicaciones_key' in usuarios[key])) return;
 
-		const {publicaciones_key} = usuario[key]
-		return publicaciones[publicaciones_key].map((publicacion) =>{
-			return(
-			<div className="pub_titulo">
+		const { publicaciones_key } = usuarios[key];
+		return this.mostrarInfo(
+			publicaciones[publicaciones_key],
+			publicaciones_key
+		);
+	};
+
+	mostrarInfo = (publicaciones, pub_key) => (
+		publicaciones.map((publicacion, com_key) => (
+			<div
+				key={publicacion.id}
+				className='pub_titulo'
+				onClick={ () => this.props.abrirCerrar(pub_key, com_key) }
+			>
 				<h2>
-					{publicacion.title}	
+					{ publicacion.title }
 				</h2>
 				<h3>
-					{publicacion.body}
+					{ publicacion.body }
 				</h3>
+				{ (publicacion.abierto) ? 'abierto' : 'cerrado' }
 			</div>
-			)
-		})
-
-
-
-
-	}
+		))
+	);
 
 	render() {
-		console.log(this.props);
-		
-
-
-
 		return (
-			<div className="margen">
-				{ this.props.match.params.key }
-				{ this.ponerUsuario()}
+			<div>
+				{ this.ponerUsuario() }
 				{ this.ponerPublicaciones() }
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = ({ usuarioReducer, publicacionesReducer }) => {
-    return { 
-        usuarioReducer, 
-        publicacionesReducer 
-    };
+const mapStateToProps = ({ usuariosReducer, publicacionesReducer }) => {
+	return { usuariosReducer, publicacionesReducer };
 };
 
 const mapDispatchToProps = {
-    usuariosTraerTodo,
-    publicacionesTraerPorUsuario
+	usuariosTraerTodos,
+	publicacionesTraerPorUsuario,
+	abrirCerrar
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Publicaciones);
