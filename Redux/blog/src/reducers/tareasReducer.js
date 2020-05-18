@@ -1,12 +1,11 @@
-/** @format */
-
-import { TRAER_TODAS, CARGANDO, ERROR } from './../types/tareasTypes';
+import { TRAER_TODAS, CARGANDO, ERROR } from '../types/tareasTypes';
 
 const INITIAL_STATE = {
 	tareas: {},
 	cargando: false,
-	error: '',
+	error: ''
 };
+
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case TRAER_TODAS:
@@ -14,20 +13,15 @@ export default (state = INITIAL_STATE, action) => {
 				...state,
 				tareas: action.payload,
 				cargando: false,
-				error: '',
+				error: ''
 			};
 
 		case CARGANDO:
 			return { ...state, cargando: true };
 
 		case ERROR:
-			return {
-				...state,
-				error: action.payload,
-				cargando: false,
-			};
+			return { ...state, error: action.payload, cargando: false };
 
-		default:
-			return state;
-	}
+		default: return state;
+	};
 };
